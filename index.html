@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="./exit.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Simulação de Evacuação Inteligente</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="background-pattern"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <div class="header-icon">
+                <i data-lucide="shield-alert"></i>
+            </div>
+            <div class="header-text">
+                <h1 class="title">Simulação de Evacuação Inteligente</h1>
+                <p class="subtitle">Sistema avançado de monitoramento e resposta a emergências</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="main-grid">
+            <section class="map-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i data-lucide="map"></i>
+                    </div>
+                    <h2>Mapa de Evacuação</h2>
+                </div>
+                <div id="mapa" class="mapa" aria-label="Mapa de evacuação"></div>
+                <button class="btn-primary" onclick="simularDesastre()" aria-label="Botão para simular desastre">
+                    <i data-lucide="alert-triangle"></i>
+                    Simular Desastre
+                </button>
+            </section>
+
+            <section class="info-panels">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h2>Monitoramento Ambiental</h2>
+                </div>
+
+                <div class="panels-grid">
+                    <div id="painel1" class="painel ambiente1" aria-labelledby="titulo-painel1">
+                        <div class="painel-header">
+                            <div class="painel-icon">
+                                <i data-lucide="thermometer"></i>
+                            </div>
+                            <h3 id="titulo-painel1">Ambiente 1</h3>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="painel-content">
+                            <div class="metric">
+                                <span class="metric-label">Temperatura</span>
+                                <span class="metric-value" id="temp1">-</span>
+                                <span class="metric-unit">°C</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Pressão</span>
+                                <span class="metric-value" id="pressao1">-</span>
+                                <span class="metric-unit">hPa</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Vento</span>
+                                <span class="metric-value" id="vento1">-</span>
+                                <span class="metric-unit">km/h</span>
+                            </div>
+                            <div class="risk-badge">
+                                <span class="risk-label">Risco:</span>
+                                <span class="risk-value" id="risco1">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="painel2" class="painel ambiente2" aria-labelledby="titulo-painel2">
+                        <div class="painel-header">
+                            <div class="painel-icon">
+                                <i data-lucide="wind"></i>
+                            </div>
+                            <h3 id="titulo-painel2">Ambiente 2</h3>
+                            <div class="status-indicator"></div>
+                        </div>
+                        <div class="painel-content">
+                            <div class="metric">
+                                <span class="metric-label">Temperatura</span>
+                                <span class="metric-value" id="temp2">-</span>
+                                <span class="metric-unit">°C</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Pressão</span>
+                                <span class="metric-value" id="pressao2">-</span>
+                                <span class="metric-unit">hPa</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-label">Vento</span>
+                                <span class="metric-value" id="vento2">-</span>
+                                <span class="metric-unit">km/h</span>
+                            </div>
+                            <div class="risk-badge">
+                                <span class="risk-label">Risco:</span>
+                                <span class="risk-value" id="risco2">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="relatorio-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i data-lucide="users"></i>
+                </div>
+                <h2>Status da Evacuação</h2>
+            </div>
+            <div id="relatorio" class="relatorio" aria-live="polite">
+                <div class="empty-state">
+                    <i data-lucide="info"></i>
+                    <p>Clique em "Simular Desastre" para iniciar a simulação</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grafico-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i data-lucide="bar-chart-3"></i>
+                </div>
+                <h2>Tempo Médio por Abrigo</h2>
+            </div>
+            <div class="grafico-container">
+                <canvas id="graficoEvacuacao" width="400" height="200"
+                    aria-label="Gráfico de tempo médio por abrigo"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

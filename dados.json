@@ -1,0 +1,54 @@
+{
+    "pontosSeguros": [
+        {
+            "nome": "Abrigo Central",
+            "local": [
+                -23.560,
+                -46.620
+            ]
+        },
+        {
+            "nome": "Abrigo Norte",
+            "local": [
+                -23.570,
+                -46.640
+            ]
+        },
+        {
+            "nome": "Abrigo Sul",
+            "local": [
+                -23.580,
+                -46.630
+            ]
+        },
+        {
+            "nome": "Abrigo Leste",
+            "local": [
+                -23.590,
+                -46.610
+            ]
+        }
+    ],
+    "desastres": [
+        {
+            "localPerigo": [
+                -23.565,
+                -46.630
+            ],
+            "temperatura": 35,
+            "pressao": 1012,
+            "vento": 15,
+            "risco": "Alto"
+        },
+        {
+            "localPerigo": [
+                -23.570,
+                -46.615
+            ],
+            "temperatura": 32,
+            "pressao": 1010,
+            "vento": 10,
+            "risco": "Médio"
+        }
+    ]
+}
