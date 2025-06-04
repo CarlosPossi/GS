@@ -22,6 +22,7 @@ Além disso, o projeto foi desenvolvido para identificar as melhores rotas de fu
 contribuindo para o planejamento e otimização de sistemas de evacuação em ambientes complexos.
 <br>
 <br>
+<br>
 <h2 align= center> 
   
 🔗 Clique na Imagem para ser direcionado para o vídeo de funcionamento do Simulador:
